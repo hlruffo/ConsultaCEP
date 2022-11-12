@@ -1,25 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import Erro from './Components/Erro';
+import Pesquisa from './Components/Pesquisa';
+import Resultado from './Components/Resultado';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Resultado result={{
+        "RUA": "Rua São Paulo",
+        "CIDADE": "Maringá",
+        "ESTADO": "PR"
+      }} />
+
+
+    </>
+  )
 }
 
 export default App;
