@@ -25,12 +25,15 @@ function Pesquisa(props) {
   }
 
   function handleError(err) {
-    //const errorMessage = err.message
-    //console.log(errorMessage)
-    setErrorMessage(err.message)
+
+    const errorMessage = err.message
+    console.log(errorMessage)
+    setErrorMessage(errorMessage)
+    goTo("ERRO")
   }
 
   function handleSearch() {
+    goTo("CARREGANDO")
     consultarCep(cepNumber)
       .then(handleSuccess)
       .catch(handleError)

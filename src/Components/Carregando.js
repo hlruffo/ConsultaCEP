@@ -3,8 +3,9 @@ function Carregando(props) {
   return (
     <>
       <p>
-        Carregando
+        Buscando o Cep informado.
       </p>
+      <img src="https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca_w200.gif" />
 
       <button onClick={() => goTo("PESQUISA")}>Cancelar</button>
     </>
