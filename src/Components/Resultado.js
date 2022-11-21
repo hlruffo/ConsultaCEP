@@ -11,6 +11,9 @@ function Resultado(props) {
                 Resultados da Busca para o CEP {result.cep}
             </p>
             {elements}
+            {/* <span><b>Rua:{props.rua}</b></span>
+                <span><b>Cidade:{props.rua}</b></span>
+                <span><b>Estado:{props.rua}</b></span> */}
             <button onClick={() => goTo("PESQUISA")}>Nova consulta</button>
         </>
     );

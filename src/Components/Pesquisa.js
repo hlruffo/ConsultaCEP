@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import consultarCep from "cep-promise"
-import cep from "cep-promise";
 
 
 function numbersOnly(str) {
@@ -10,25 +9,9 @@ function numbersOnly(str) {
 
 function Pesquisa(props) {
   const goTo = props.goTo
-  const ticket = props.ticket
   const [cepNumber, setCepNumber] = useState("")
   const setResultado = props.setResultado
   const setErrorMessage = props.setErrorMessage
-  const [cepFavorito, setCepFavorito] = useState("")
-
-  useEffect(() => {
-    const storedCep = localStorage.getItem("cepFavorito") || ""
-    setCepFavorito(storedCep)
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem("cepFavorito", cepFavorito)
-  }, [cepFavorito])
-
-  function handleFavorite() {
-    localStorage.setItem("cepFavorito", cepFavorito)
-    setCepFavorito(cepNumber)
-  }
 
   function handleSuccess(dadosCep) {
     const resultado = {
@@ -44,17 +27,16 @@ function Pesquisa(props) {
   function handleError(err) {
 
     const errorMessage = err.message
+    console.log(errorMessage)
     setErrorMessage(errorMessage)
     goTo("ERRO")
   }
 
   function handleSearch() {
-    ticket.current++
-    const currentTicket = ticket.current
     goTo("CARREGANDO")
     consultarCep(cepNumber)
-      .then(result => currentTicket === ticket.current && handleSuccess(result))
-      .catch(err => currentTicket === ticket.current && handleError(err))
+      .then(handleSuccess)
+      .catch(handleError)
   }
 
 
@@ -67,16 +49,12 @@ function Pesquisa(props) {
     setCepNumber("")
   }
 
-
   return (
     <>
       <p>Qual CEP você deseja consultar?</p>
-      <p>Favorito:{cepFavorito}</p>
       <input onChange={handleChange} value={numbersOnly(cepNumber)} />
-      <button onClick={clear}> Apagar</button>
+      <button onClick={clear}> CLEAR</button>
       <button onClick={handleSearch}>Consultar</button>
-      <button onClick={handleFavorite}>Salvar Favorito</button>
-
     </>
 
   );
