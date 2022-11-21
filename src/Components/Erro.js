@@ -1,16 +1,13 @@
 function Erro(props) {
-    
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-             CEP não encontrado
-          </p>      
-          <p>{props.errorMessage}</p>
-          <button>Nova consulta</button>
-        </header>
-      </div>
-    );
-  }
+  const goTo = props.goTo
 
-  export default Erro
+  return (<>
+
+    <p>{props.errorMessage}</p>
+    <button onClick={() => goTo("PESQUISA")}>Nova consulta</button>
+  </>
+
+  );
+}
+
+export default Erro

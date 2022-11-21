@@ -1,15 +1,14 @@
-function Carregando() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Carregando
-          </p>
-  
-          <button>Cancelar</button>
-        </header>
-      </div>
-    );
-  }
+function Carregando(props) {
+  const goTo = props.goTo
+  return (
+    <>
+      <p>
+        Carregando
+      </p>
 
-  export default Carregando
+      <button onClick={() => goTo("PESQUISA")}>Cancelar</button>
+    </>
+  );
+}
+
+export default Carregando
