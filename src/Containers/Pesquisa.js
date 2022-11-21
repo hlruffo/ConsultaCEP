@@ -13,17 +13,21 @@ function Pesquisa(props) {
   const setErrorMessage = props.setErrorMessage
   const [cepFavorito, setCepFavorito] = useState("")
 
-
   useEffect(() => {
-    const storedCep = localStorage.getItem("cepFavorito") || "";
+    const storedCep = localStorage.getItem("cepFavorito") || ""
     setCepFavorito(storedCep)
   }, [])
 
+  //a inserção desse useEffect está afetando a persistencia do cep na memoria de local host.
+  // correção feita com o if para o funcionamento correto
   useEffect(() => {
-    localStorage.setItem("cepFavorito", cepFavorito)
+    if (!!cepFavorito) {
+      localStorage.setItem("cepFavorito", cepFavorito)
+    }
   }, [cepFavorito])
 
   function handleFavorite() {
+    localStorage.setItem("cepFavorito", cepNumber)
     setCepFavorito(cepNumber)
   }
 
