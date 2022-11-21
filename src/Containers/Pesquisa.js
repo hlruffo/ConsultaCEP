@@ -95,8 +95,8 @@ function Pesquisa(props) {
       <button onClick={handleFavorite}>Salvar Favorito</button>
       <br></br>
       <p>Favorito:{cepFavorito}</p>
-      <CEPDados cepDados={cepDados} />
-
+      {console.log(cepDados)}
+      <CEPDados  CEPDados={cepDados} />
 
 
     </>
