@@ -1,6 +1,5 @@
 import CEPDados from "../Components/CEPDados";
 
-
 function Resultado(props) {
     const result = props.result
     const goTo = props.goTo

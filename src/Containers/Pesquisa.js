@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import consultarCep from "cep-promise"
+import CEPDados from "../Components/CEPDados";
+
 
 function numbersOnly(str) {
   return str.replace(/[^\d]/g, "")  // exclui do input caracteres não numéricos
@@ -12,6 +14,7 @@ function Pesquisa(props) {
   const setResultado = props.setResultado
   const setErrorMessage = props.setErrorMessage
   const [cepFavorito, setCepFavorito] = useState("")
+  const [cepDados, setCepDados] = useState({})
 
   useEffect(() => {
     const storedCep = localStorage.getItem("cepFavorito") || ""
@@ -20,11 +23,24 @@ function Pesquisa(props) {
 
   //a inserção desse useEffect está afetando a persistencia do cep na memoria de local host.
   // correção feita com o if para o funcionamento correto
+  /*  useEffect(() => {
+     if (!!cepFavorito) {
+       localStorage.setItem("cepFavorito", cepFavorito);
+       consultarCep(cepFavorito)
+         .then(resultado => setCepDados)
+         .catch(err => setCepDados({ "ERRO": err.message })) 
+     }
+   }, [cepFavorito]) */
+
   useEffect(() => {
-    if (!!cepFavorito) {
-      localStorage.setItem("cepFavorito", cepFavorito)
+    if (!cepFavorito) {
+      return;
     }
-  }, [cepFavorito])
+    localStorage.setItem("cepFavorito", cepFavorito);
+    consultarCep(cepFavorito)
+      .then((resultado) => setCepDados(resultado))
+      .catch((err) => setCepDados({ ERRO: err.message }));
+  }, [cepFavorito]);
 
   function handleFavorite() {
     localStorage.setItem("cepFavorito", cepNumber)
@@ -73,11 +89,15 @@ function Pesquisa(props) {
   return (
     <>
       <p>Qual CEP você deseja consultar?</p>
-      <p>Favorito:{cepFavorito}</p>
       <input onChange={handleChange} value={numbersOnly(cepNumber)} />
       <button onClick={clear}> Apagar</button>
       <button onClick={handleSearch}>Consultar</button>
       <button onClick={handleFavorite}>Salvar Favorito</button>
+      <br></br>
+      <p>Favorito:{cepFavorito}</p>
+      <CEPDados cepDados={cepDados} />
+
+
 
     </>
 
